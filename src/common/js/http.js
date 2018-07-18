@@ -3,7 +3,7 @@ import axios from 'axios'
 let fetch = axios.create({
   baseURL: process.env.BASE_URL + process.env.API_BASE_URL, // api的base_url
   withCredentials: true,
-  timeout: 30000                 // 请求超时时间
+  timeout: 30000 // 请求超时时间
 })
 
 // fetch.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'  // 配置请求头
@@ -20,13 +20,11 @@ fetch.interceptors.response.use(
   },
   error => {
     return false
-  }
-)
-let ajaxRequest = (url, data = {}, method, openLoad) => {
-  if (openLoad) {
-  }
+  })
+
+let openAjaxRequest = (url, data = {}, method, openLoad) => {
   let obj = {
-    url,
+    url: (process.env.NODE_ENV === 'production' ? window.staticUrl.API_HOST : process.env.API_HOST) + url,
     method,
     data,
     params: data
@@ -39,13 +37,7 @@ let ajaxRequest = (url, data = {}, method, openLoad) => {
   // console.log(obj)
   return fetch(obj)
 }
-
-
-
-
-
-
-
-
-
-
+// 登录
+export function login (options) {
+  return openAjaxRequest('api/v1/user/signin', options, 'POST')
+}

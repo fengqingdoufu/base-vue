@@ -10,12 +10,16 @@ import fastClick from 'fastclick'
 import 'common/scss/reset.scss'
 import 'common/scss/border.css'
 import Notification from './components/notification'
+import Comfirm from './components/comfirm'
+import Toast from './components/toast'
 Vue.config.productionTip = false
 fastClick.attach(document.body)
 /* eslint-disable no-new */
 Vue.use(Notification)
+Vue.use(Comfirm)
+Vue.use(Toast)
 let supportTouch = 'deviceready' in window
-console.log(supportTouch)
+// console.log(supportTouch)
 if (supportTouch) {
   document.addEventListener('deviceready', function () {
     new Vue({
